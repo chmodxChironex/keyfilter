@@ -1,0 +1,22 @@
+# Ignore binary and backup files
+keyfilter
+keyfilter.exe
+*.out
+*.o
+*.obj
+*.bak
+*.log
+*.tmp
+
+# Ignore test output
+*.result
+*.diff
+
+# Ignore IDE/project config files (e.g., CLion, VSCode)
+.idea/
+.vscode/
+*.iml
+
+# Ignore system files
+.DS_Store
+Thumbs.db
