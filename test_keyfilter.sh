@@ -85,7 +85,7 @@ run_test "test_03.txt" "to" "Found: TOHLEJETESTNASTOCHARAKTERUDLOUHEJRADEKJESTLI
 # Test special characters
 echo -e " \n1\n2\n3\n!\n:\n_\n;\n~\nA\nB\nc" > test_04.txt
 
-run_test "test_04.txt" "" "Enable:  !123:;ABC_~"
+run_test "test_04.txt" "" "Enable:  !123:;_ABC~"
 
 #white spaces
 echo -e "\nBratislava\nBrno hl.n.\nBrno hl.aut.n\nBrno\nBruntal" > test_05.txt

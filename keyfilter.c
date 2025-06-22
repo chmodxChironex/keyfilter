@@ -3,7 +3,7 @@
  * @brief Address filtering and character suggestion system
  * @author Martin Klíma (xklimam00@stud.fit.vutbr.cz)
  * @date 30.10.2023
- * 
+ *
  * This program reads addresses from stdin and provides character suggestions
  * based on a given prefix. It can either find an exact match or suggest
  * the next possible characters to continue typing.
@@ -46,7 +46,11 @@ int removeAllDuplicates(char *arr) {
  */
 void sortASCII(char *arr) {
     size_t len = strlen(arr);
-    
+
+    if (len <= 1) {
+        return;
+    }
+
     for (size_t i = 0; i < len - 1; i++) {
         size_t min = i;
         for (size_t j = i + 1; j < len; j++) {
@@ -69,7 +73,7 @@ void sortASCII(char *arr) {
  * @param numAddresses Number of addresses in the array
  * @param allowedChars Output buffer for allowed characters
  */
-void showALLOWED_CHARS(const char *prefix, char addresses[][MAX_ADDRESS_LENGTH], 
+void showALLOWED_CHARS(const char *prefix, char addresses[][MAX_ADDRESS_LENGTH],
                        int numAddresses, char *allowedChars) {
     int allowed[ASCII_SIZE] = {0};
     size_t prefixLen = strlen(prefix);
@@ -90,7 +94,7 @@ void showALLOWED_CHARS(const char *prefix, char addresses[][MAX_ADDRESS_LENGTH],
         }
     }
     allowedChars[end] = '\0';
-    
+
     removeAllDuplicates(allowedChars);
     sortASCII(allowedChars);
 
@@ -117,11 +121,11 @@ void toUpperCase(char *str) {
  * @param found Output buffer for the found address (if exactly one match)
  * @return Number of matching addresses found
  */
-int findAddress(const char *prefix, char addresses[][MAX_ADDRESS_LENGTH], 
+int findAddress(const char *prefix, char addresses[][MAX_ADDRESS_LENGTH],
                 int numAddresses, char *found) {
     int matchCount = 0;
     size_t prefixLen = strlen(prefix);
-    
+
     for (int i = 0; i < numAddresses; i++) {
         if (strncmp(prefix, addresses[i], prefixLen) == 0) {
             if (matchCount == 0) {
@@ -148,7 +152,7 @@ int main(int argc, char *argv[]) {
     char allowedChars[MAX_ADDRESS_LENGTH];
     char found[MAX_ADDRESS_LENGTH];
 
-    while (numAddresses < MAX_ADDRESSES && 
+    while (numAddresses < MAX_ADDRESSES &&
            fgets(addresses[numAddresses], MAX_ADDRESS_LENGTH, stdin) != NULL) {
         size_t len = strlen(addresses[numAddresses]);
         if (len > 0 && addresses[numAddresses][len - 1] == '\n') {
@@ -159,7 +163,7 @@ int main(int argc, char *argv[]) {
     }
 
     char *prefix = (argc > 1) ? argv[1] : "";
-    
+
     char prefixCopy[MAX_ADDRESS_LENGTH];
     strncpy(prefixCopy, prefix, MAX_ADDRESS_LENGTH - 1);
     prefixCopy[MAX_ADDRESS_LENGTH - 1] = '\0';
